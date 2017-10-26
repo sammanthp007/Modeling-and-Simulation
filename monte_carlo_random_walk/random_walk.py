@@ -16,7 +16,7 @@ def main():
     """ First function that runs on running this module"""
     num_of_walks = 20000
     walkable_block = 5
-    max_block = 51
+    max_block = 71
     cost_of_lyft = 10
 
     last_val_more_than_50 = walkable_block
@@ -50,6 +50,7 @@ def main():
     print ("Last walk that had more chance of walking back than taking lyft ",
             last_val_more_than_50)
 
+    print "An array of cost per block and the len of walk: "
     print (sorted(cost_by_walk)[:10])
 
 main()
