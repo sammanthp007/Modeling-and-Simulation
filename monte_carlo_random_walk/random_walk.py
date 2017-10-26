@@ -14,13 +14,30 @@ def random_walk(n):
 
 def main():
     """ First function that runs on running this module"""
-    num_of_simulation = 25
-    num_of_blocks = 6
+    num_of_walks = 20000
+    walkable_block = 6
+    max_block = 51
 
-    for i in range(num_of_simulation):
-        walk = random_walk(num_of_blocks)
-        total_distance_back = abs(walk[0] + walk[1])
+    last_val_more_than_50 = walkable_block
 
-        print "The distance from home is ", abs(walk[0] + walk[1])
+    for walk_len in range(1, max_block):
+        no_lyft_needed = 0
+        for j in range(num_of_walks):
+            walk = random_walk(walk_len)
+            total_distance_walked = abs(walk[0]) + abs(walk[1])
+
+            if total_distance_walked <= walkable_block:
+                no_lyft_needed += 1
+
+        no_lyft_percent = 100 * float(no_lyft_needed) / num_of_walks
+
+        if no_lyft_percent > 50:
+            last_val_more_than_50 = max(last_val_more_than_50, walk_len)
+
+        print ("Total walk Length: ", walk_len,
+                "No lyft required %", no_lyft_percent)
+
+    print ("Last walk that had more chance of walking back than taking lyft ",
+            last_val_more_than_50)
 
 main()
