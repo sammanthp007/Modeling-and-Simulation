@@ -15,10 +15,12 @@ def random_walk(n):
 def main():
     """ First function that runs on running this module"""
     num_of_walks = 20000
-    walkable_block = 6
-    max_block = 71
+    walkable_block = 5
+    max_block = 51
+    cost_of_lyft = 10
 
     last_val_more_than_50 = walkable_block
+    cost_by_walk = []
 
     for walk_len in range(1, max_block):
         no_lyft_needed = 0
@@ -30,14 +32,24 @@ def main():
                 no_lyft_needed += 1
 
         no_lyft_percent = 100 * float(no_lyft_needed) / num_of_walks
+        lyft_needed = num_of_walks - no_lyft_needed
+        lyft_cost = lyft_needed * cost_of_lyft
+
+        cost_per_block = float(lyft_cost) / walk_len
+
+        cost_by_walk.append((cost_per_block, walk_len))
 
         if no_lyft_percent > 50:
             last_val_more_than_50 = max(last_val_more_than_50, walk_len)
 
         print ("Total walk Length: ", walk_len,
-                "No lyft required %", no_lyft_percent)
+                "No lyft required %", no_lyft_percent,
+                "left needed for ", lyft_needed,
+                "cost per block ", cost_per_block)
 
     print ("Last walk that had more chance of walking back than taking lyft ",
             last_val_more_than_50)
+
+    print (sorted(cost_by_walk)[:10])
 
 main()
